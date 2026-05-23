@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgoraDigest Blog — Multi-Agent Debate & AI Insights</title>
+  <meta name="description" content="Explore multi-agent AI debates, agent skills, and cutting-edge AI research through the AgoraDigest lens.">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-900 font-sans">
+  <header class="border-b border-gray-200">
+    <div class="max-w-4xl mx-auto px-6 py-6 flex items-center justify-between">
+      <a href="/" class="text-xl font-bold tracking-tight">AgoraDigest Blog</a>
+      <nav class="space-x-6 text-sm text-gray-600">
+        <a href="/" class="hover:text-gray-900">Home</a>
+        <a href="https://agoradigest.com" class="hover:text-gray-900">AgoraDigest →</a>
+      </nav>
+    </div>
+  </header>
+  <main class="max-w-4xl mx-auto px-6 py-12">
+    <div id="posts"></div>
+  </main>
+  <footer class="border-t border-gray-200 mt-12">
+    <div class="max-w-4xl mx-auto px-6 py-8 text-sm text-gray-500 text-center">
+      <p>AgoraDigest Blog — Powered by multi-agent debate.</p>
+    </div>
+  </footer>
+  <script>
+    const posts = [
+      { slug: "what-is-multi-agent-digest", title: "What Is a Multi-Agent Digest?", desc: "How AI agents debating each other produce better answers than any single model.", date: "2026-05-22" },
+      { slug: "best-ai-aggregator-tools-2026", title: "Best AI Aggregator Tools 2026", desc: "A roundup of the top platforms for aggregating and comparing AI outputs.", date: "2026-05-22" },
+      { slug: "how-to-get-cited-by-ai", title: "How to Get Your Content Cited by AI", desc: "AI SEO strategies that make LLMs quote your content in their answers.", date: "2026-05-22" },
+      { slug: "agent-skills-are-eating-software", title: "Agent Skills Are Eating Software", desc: "Why SKILL.md files are becoming the new API for AI agents.", date: "2026-05-22" },
+      { slug: "building-elvarone-agent", title: "Building ElvarOne: A Self-Improving AI Agent", desc: "Behind the scenes of an agent that writes its own skills and improves over time.", date: "2026-05-22" },
+      { slug: "agoradvs-competitors", title: "AgoraDigest vs. Other AI Aggregators", desc: "How multi-agent debate changes the game for answer quality.", date: "2026-05-22" },
+      { slug: "multi-agent-debate-101", title: "Multi-Agent Debate 101", desc: "The fundamental concepts behind AI agents arguing to find truth.", date: "2026-05-22" },
+      { slug: "prompt-caching-guide", title: "The 2026 Guide to Prompt Caching", desc: "Slash your Claude API costs by 60% with intelligent prompt caching.", date: "2026-05-22" },
+      { slug: "mcp-server-from-scratch", title: "Build an MCP Server From Scratch", desc: "Step-by-step tutorial for creating your first Model Context Protocol server.", date: "2026-05-22" },
+      { slug: "top-10-agent-skills", title: "Top 10 Agent Skills You Should Install", desc: "The most useful Claude Code, Codex, and Gemini skills ranked by GitHub stars.", date: "2026-05-22" },
+      { slug: "ai-engineering-productivity", title: "AI Engineering Productivity in 2026", desc: "Data-driven look at how teams using agent skills ship 38% faster.", date: "2026-05-22" },
+      { slug: "crypto-agent-roundup", title: "Crypto Market Analysis: Agent Edition", desc: "How AI agents analyze crypto markets differently than humans.", date: "2026-05-22" },
+      { slug: "saas-valuation-2026", title: "SaaS Valuation Trends in 2026", desc: "ARR multiples, compression drivers, and what the software meltdown means.", date: "2026-05-22" },
+      { slug: "trading-with-ai-agents", title: "Can AI Agents Actually Trade?", desc: "Testing Minervini SEPA and CANSLIM strategies through agent-based analysis.", date: "2026-05-22" },
+      { slug: "openclaw-vs-hermes", title: "OpenClaw vs Hermes: Which Agent Platform Wins?", desc: "A comprehensive comparison of the two leading open-source agent systems.", date: "2026-05-22" },
+    ];
+
+    const container = document.getElementById('posts');
+    posts.forEach(p => {
+      const article = document.createElement('article');
+      article.className = 'mb-10 pb-10 border-b border-gray-100';
+      article.innerHTML = `
+        <time class="text-sm text-gray-500">${p.date}</time>
+        <h2 class="text-2xl font-bold mt-1 mb-2">
+          <a href="/posts/${p.slug}.html" class="hover:text-blue-600">${p.title}</a>
+        </h2>
+        <p class="text-gray-600 leading-relaxed">${p.desc}</p>
+        <a href="/posts/${p.slug}.html" class="inline-block mt-3 text-sm font-medium text-blue-600 hover:text-blue-800">Read more →</a>
+      `;
+      container.appendChild(article);
+    });
+  </script>
+</body>
+</html>
