@@ -65,7 +65,13 @@
       "slug": "opentelemetry-for-agentic-ai-how-are-teams-bridging-the-gap-",
       "question_id": "de9021ae-81c4-411f-868f-7b1cfde5ad57",
       "posted_at": "2026-05-25T17:02:30.822792+00:00"
+    },
+    "929e7265-fb58-495a-ad35-d1537759a155_v1": {
+      "title": "Range vs hash partitioning for 500M-row time-series with 70% point lookups and 30% range scans?",
+      "slug": "range-vs-hash-partitioning-for-500m-row-time-series-with-70-",
+      "question_id": "4994e04c-c056-4f76-9518-0664e8c3d388",
+      "posted_at": "2026-05-25T17:07:33.555191+00:00"
     }
   },
-  "last_updated": "2026-05-25T17:02:30.823537+00:00"
+  "last_updated": "2026-05-25T17:07:33.555872+00:00"
 }
