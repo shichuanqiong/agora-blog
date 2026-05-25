@@ -8,6 +8,35 @@ R=Path(r"C:\elvar-agent\agora-blog")
 SF=R/"digest_state.json"; PD=R/"posts"; IH=R/"index.html"
 BH="/agora-blog/"; AU="https://agoradigest.com"; MX=30
 
+
+def fetch_digest_body(url):
+    """Fetch a single digest page and extract body text."""
+    try:
+        r = requests.get(url, timeout=15, headers={"User-Agent":"AgoraBlog/1.0"})
+        r.raise_for_status()
+        txt = r.text
+        text = re.sub(r"<[^>]+>", " ", txt)
+        text = re.sub(r"\s+", " ", text).strip()
+        # Find digest body
+        markers = ["digest v", "high confidence", "synthesized from"]
+        body_start = 0
+        for m in markers:
+            idx = text.lower().find(m)
+            if idx >= 0:
+                body_start = idx
+                break
+        # Cut at next major section
+        end_markers = ["trust radar", "attempts", "live events"]
+        body_end = body_start + 4000
+        for m in end_markers:
+            idx = text.lower().find(m, body_start + 100)
+            if idx > body_start + 200 and idx < body_end:
+                body_end = idx
+                break
+        return text[body_start:body_end].strip()
+    except Exception as e:
+        print(f"    FETCH ERROR {url}: {e}")
+        return ""
 def ls():
     if SF.exists():
         try: return json.loads(SF.read_text(encoding="utf-8"))
@@ -26,7 +55,7 @@ def fd():
     r=requests.get(AU,timeout=30,headers={"User-Agent":"AgoraBlog/1.0"})
     r.raise_for_status();t=r.text
     digests=[];seen=set()
-    ld_match=re.search(r'<script type="application/ld\+json">(.*?)</script>',t,re.DOTALL)
+    ld_match=re.search(r'<script type="application/ld\\+json">(.*?)</script>',t,re.DOTALL)
     if not ld_match: return digests
     try:
         ld=j.loads(ld_match.group(1))
@@ -35,23 +64,35 @@ def fd():
             if not name or len(name)<10 or name in seen: continue
             seen.add(name)
             title=name.split("\n")[0].strip()
+            url = item.get("url","")
+            digest_id = url.split("/")[-1][:12]
+            print(f"  Fetching body for: {title[:50]}...")
+            body = fetch_digest_body(url) if url else name[:2000]
+            if not body or len(body) < 100:
+                body = name[:2000]
             digests.append({
-                "id":item.get("url","").split("/")[-1][:12],
+                "id":digest_id,
                 "title":title,"slug":sl(title),"vertical":"engineering",
-                "body":name[:2000],"agents":["atlas","rhea","kairos"],
+                "body":body,"agents":["atlas","rhea","kairos"],
                 "date":datetime.now(timezone.utc).strftime("%Y-%m-%d"),
-                "url":item.get("url","")
+                "url":url
             })
-            print(f"  OK {title[:60]}")
+            print(f"  OK {title[:60]} ({len(body)} chars)")
     except Exception as e: print(f"JSON-LD error: {e}")
     return digests
-
 def gph(d):
     ti=he(d["title"]);de=he(d["body"][:150].replace("\n"," "))
     ag=", ".join(d["agents"]) if d["agents"] else "AI agents"
-    b=re.sub(r"<[^>]+>","",d["body"])
-    pars=[f"<p>{p.strip()}</p>" for p in b.split("\n") if p.strip()]
-    b="\n".join(pars) if pars else f"<p>{b}</p>"
+    b = d["body"]
+    b = re.sub(r"<[^>]+>", "", b)
+    # Try to split into paragraphs by sentence or newline
+    pars = [p.strip() for p in b.split(". ") if len(p.strip()) > 40]
+    if not pars:
+        pars = [p.strip() for p in b.split("\n") if p.strip()]
+    if not pars:
+        pars = [b[:500]]
+    html_pars = [f"<p>{he(p)}.</p>" for p in pars[:30]]
+    b = "\n".join(html_pars)
     return f'''<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>{ti} | AgoraDigest</title><meta name="description" content="{de[:200]}">
@@ -60,17 +101,16 @@ def gph(d):
 <header class="border-b border-gray-200"><div class="max-w-3xl mx-auto px-6 py-6 flex items-center justify-between">
 <a href="{BH}" class="text-xl font-bold">AgoraDigest Blog</a>
 <nav class="space-x-6 text-sm text-gray-600"><a href="{BH}" class="hover:text-gray-900">Home</a>
-<a href="https://agoradigest.com" class="hover:text-gray-900">Try AgoraDigest -{'>'}</a></nav></div></header>
+<a href="https://agoradigest.com" class="hover:text-gray-900">Try AgoraDigest →</a></nav></div></header>
 <main class="max-w-3xl mx-auto px-6 py-12"><article>
 <time class="text-sm text-gray-500">{d["date"]}</time>
 <h1 class="text-4xl font-bold mt-2 mb-6">{ti}</h1>
 {b}
-<p class="mt-8 text-sm text-gray-500">Digest by {ag} . <a href="{d["url"]}" class="text-blue-600 hover:underline">View original -{'>'}</a></p>
+<p class="mt-8 text-sm text-gray-500">Digest by {ag} · <a href="{d["url"]}" class="text-blue-600 hover:underline">View original →</a></p>
 </article></main>
 <footer class="border-t border-gray-200 mt-12"><div class="max-w-3xl mx-auto px-6 py-8 text-sm text-gray-500 text-center">
-<p>AgoraDigest Blog - Powered by multi-agent debate.</p></div></footer>
+<p>AgoraDigest Blog — Powered by multi-agent debate.</p></div></footer>
 </body></html>'''
-
 def ri(pl):
     """Rebuild index.html from ALL html files in posts/. not just JSON-LD data."""
     all_posts = []
