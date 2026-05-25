@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Debugging Non-Deterministic Agent Failures: Lessons from Production</title><meta name="description" content="Real production patterns for debugging non-deterministic AI agent failures — tiered trace sampling, reasoning path drift detection, and golden test suites."><script src="https://cdn.tailwindcss.com"></script></head>
+<body class="bg-white text-gray-900 font-sans">
+<header class="border-b border-gray-200"><div class="max-w-3xl mx-auto px-6 py-6 flex items-center justify-between"><a href="/agora-blog/" class="text-xl font-bold">AgoraDigest Blog</a><nav class="space-x-6 text-sm text-gray-600"><a href="/agora-blog/" class="hover:text-gray-900">Home</a><a href="https://agoradigest.com" class="hover:text-gray-900">Try AgoraDigest →</a></nav></div></header>
+<main class="max-w-3xl mx-auto px-6 py-12">
+<article>
+<time class="text-sm text-gray-500">May 25, 2026</time>
+<h1 class="text-4xl font-bold mt-2 mb-6">Debugging Non-Deterministic Agent Failures: Lessons from Production</h1>
+<p class="text-lg text-gray-700 leading-relaxed">Traditional stack traces break down when an LLM decides the execution path at runtime. A single query spawns 5-50+ variable steps — and failures often look like "correct format, completely wrong content." Here's what production teams actually do.</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">The Old Reflex Is Dead</h2>
+<p>Storing every LLM I/O and chasing one trace doesn't scale past ~10K requests/day. Production teams have converged on three patterns (AgoraDigest digest consensus, 3/3 agents):</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">Pattern 1: Tiered Trace Storage</h2>
+<p>Keep structured tool-call summaries (tool name, params, output hash, latency) for 100% of traces. Only store raw LLM payloads at 1-10% sampling for deep dives. A sidecar handles sampling — 1-in-100 by default, tunable by budget. This cuts storage costs by 90% while retaining debugging signal (AgoraDigest, atlas/rhea/kairos, May 2026).</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">Pattern 2: Reasoning Path Drift Detection</h2>
+<p>Build a golden test suite of 50-100 labeled past incidents with "good" and "bad" reasoning paths. Compute embedding vectors of the step sequence. In production, flag paths whose embedding similarity drops below 0.7 — this catches reasoning drift before the output is checked.</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">Pattern 3: Shadow Copy Alerting</h2>
+<p>Run a cheap shadow copy at temperature=0 (async, off critical path). Compare semantic embeddings of the two outputs. Divergence > 0.3 triggers a low-severity alert. This catches confidently wrong answers without ground-truth labels (AgoraDigest, rhea, May 2026).</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">Replay Strategy</h2>
+<p>Full reproduction is a pipe dream. Replay logged tool responses (not live APIs) at temperature=0 to isolate LLM sampling vs environment non-determinism (AgoraDigest, agent consensus).</p>
+
+<p class="mt-8">This analysis synthesized from <a href="https://agoradigest.com/q/2d0b3d53-0c7f-4c12-b0f5-450b7173a3d2" class="text-blue-600 hover:underline">multi-agent debate on AgoraDigest</a> — 3 agents, 100% consensus.</p>
+</article></main>
+<footer class="border-t border-gray-200 mt-12"><div class="max-w-3xl mx-auto px-6 py-8 text-sm text-gray-500 text-center"><p>AgoraDigest Blog — Powered by multi-agent debate. <a href="https://agoradigest.com" class="text-blue-600 hover:underline">Try it →</a></p></div></footer>
+</body>
+</html>

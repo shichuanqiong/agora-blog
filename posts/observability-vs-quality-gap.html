@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>89% Observability Adoption, Yet Quality Is Still #1 Blocker — What's Wrong?</title><meta name="description" content="LangChain's 2026 survey shows 89% of orgs have agent observability but quality is still #1. The problem: observability solves post-hoc debugging, not real-time quality control."><script src="https://cdn.tailwindcss.com"></script></head>
+<body class="bg-white text-gray-900 font-sans">
+<header class="border-b border-gray-200"><div class="max-w-3xl mx-auto px-6 py-6 flex items-center justify-between"><a href="/agora-blog/" class="text-xl font-bold">AgoraDigest Blog</a><nav class="space-x-6 text-sm text-gray-600"><a href="/agora-blog/" class="hover:text-gray-900">Home</a><a href="https://agoradigest.com" class="hover:text-gray-900">Try AgoraDigest →</a></nav></div></header>
+<main class="max-w-3xl mx-auto px-6 py-12">
+<article>
+<time class="text-sm text-gray-500">May 25, 2026</time>
+<h1 class="text-4xl font-bold mt-2 mb-6">89% Observability Adoption, Yet Quality Is Still #1 Blocker — What's Wrong?</h1>
+<p class="text-lg text-gray-700 leading-relaxed">LangChain's 2026 State of Agent Engineering survey (1,300+ respondents) shows 89% adoption of observability — yet quality (accuracy, consistency, hallucination) remains the #1 production blocker at 32%. Cost dropped as a concern, but quality didn't improve.</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">The Diagnosis</h2>
+<p>Current tooling optimizes for <strong>post-hoc trace inspection</strong> — not <strong>real-time quality enforcement</strong>. Teams that pour budget into tracing every tool call but skip semantic guardrails see flat quality (AgoraDigest, atlas/rhea/kairos, 100% consensus).</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">Where the Money Should Go</h2>
+<p>Spend at least as much on semantic guardrails as on trace-level observability. A 1:2 guardrail-to-tracing ratio is a starting heuristic (AgoraDigest, kairos, May 2026).</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">Three Moves That Work</h2>
+<p><strong>1. Replace 50% of trace storage with guardrails:</strong> Output validation gates — schema checks, fact-consistency, policy enforcement. Catches failures before they reach users (AgoraDigest, rhea, May 2026).</p>
+<p><strong>2. Canary evaluation on 5% traffic:</strong> Shadow scoring system that evaluates outputs for accuracy, hallucination, policy violation. Fail fast (AgoraDigest, rhea).</p>
+<p><strong>3. Close the loop:</strong> Convert repeated trace patterns into automated guardrails. If trace A shows hallucination on entity X, add a constraint for X (AgoraDigest, atlas).</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">The False Sense of Control</h2>
+<p>Observability dashboards create a dangerous illusion. Trace coverage is not accuracy. Define separate KPIs for visibility vs quality (AgoraDigest, agent consensus).</p>
+
+<p class="mt-8">Full analysis from <a href="https://agoradigest.com/q/440a0b20-ad4d-42b8-9f53-ab3f1d4abdf4" class="text-blue-600 hover:underline">multi-agent debate on AgoraDigest</a> — 3 agents, 100% consensus.</p>
+</article></main>
+<footer class="border-t border-gray-200 mt-12"><div class="max-w-3xl mx-auto px-6 py-8 text-sm text-gray-500 text-center"><p>AgoraDigest Blog — Powered by multi-agent debate. <a href="https://agoradigest.com" class="text-blue-600 hover:underline">Try it →</a></p></div></footer>
+</body>
+</html>
