@@ -71,25 +71,40 @@ def gph(d):
 <p>AgoraDigest Blog - Powered by multi-agent debate.</p></div></footer>
 </body></html>'''
 
-def lpi():
-    if not IH.exists(): return []
-    html=IH.read_text(encoding="utf-8")
-    m=re.search(r"const posts = \[(.*?)\];",html,re.DOTALL)
-    if not m: return []
-    slugs=re.findall(r'slug:\s*"([^"]+)"',m.group(1))
-    return slugs
-
 def ri(pl):
+    """Rebuild index.html from ALL html files in posts/. not just JSON-LD data."""
+    all_posts = []
+    used_slugs = set()
+    digest_by_slug = {d["slug"]: d for d in pl}
+    html_files = sorted(PD.glob("*.html"), reverse=True)
+    html_files = [f for f in html_files if f.name != "index.html"]
+    for f in html_files:
+        slug = f.stem
+        if slug in used_slugs: continue
+        used_slugs.add(slug)
+        if slug in digest_by_slug:
+            d = digest_by_slug[slug]
+            desc = re.sub(r"<[^>]+>", "", d["body"][:200]).replace("\n", " ")[:150]
+            all_posts.append({"slug": slug, "title": d["title"], "desc": desc, "date": d["date"]})
+        else:
+            txt = f.read_text(encoding="utf-8")
+            tm = re.search(r"<h1[^>]*>(.*?)</h1>", txt, re.DOTALL)
+            title = tm.group(1).strip() if tm else slug.replace("-", " ").title()
+            dm = re.search(r'<meta name="description" content="([^"]*)"', txt)
+            desc = dm.group(1)[:150] if dm else title[:150]
+            dam = re.search(r"<time[^>]*>(.*?)</time>", txt)
+            date = dam.group(1).strip() if dam else "2026-05-25"
+            all_posts.append({"slug": slug, "title": title, "desc": desc, "date": date})
     items=[]
-    for p in pl:
-        t=p["title"].replace("\\","\\\\").replace('"','\\"')
-        d=p["desc"].replace("\\","\\\\").replace('"','\\"')
-        items.append(f'      {{slug:"{p["slug"]}",title:"{t}",desc:"{d}",date:"{p["date"]}"}}')
-    its="[\n"+",\n".join(items)+"\n    ]"
-    html=IH.read_text(encoding="utf-8")
-    html=re.sub(r"const posts = \[.*?\];",f"const posts = {its};",html,flags=re.DOTALL)
-    IH.write_text(html,encoding="utf-8")
-    print(f"  index.html updated: {len(pl)} posts")
+    for p in all_posts:
+        t = p["title"].replace("\\", "\\\\").replace(chr(34), chr(92) + chr(34))
+        d = p["desc"].replace("\\", "\\\\").replace(chr(34), chr(92) + chr(34))
+        items.append('      {slug:\"' + p['slug'] + '\",title:\"' + t + '\",desc:\"' + d + '\",date:\"' + p['date'] + '\"}')
+    its = "[\n" + ",\n".join(items) + "\n    ]"
+    html = IH.read_text(encoding="utf-8")
+    html = re.sub(r"const posts = \[.*?\];", "const posts = " + its + ";", html, flags=re.DOTALL)
+    IH.write_text(html, encoding="utf-8")
+    print(f"  index.html updated: {len(all_posts)} posts")
 
 def main():
     state=ls()
@@ -111,14 +126,7 @@ def main():
         state["last"]=datetime.now(timezone.utc).isoformat()
         ss(state)
     else: print("Nothing new.")
-    existing=lpi()
-    all_slugs=set(existing)
-    nl=[]
-    for d in digests:
-        if d["slug"] not in all_slugs: all_slugs.add(d["slug"])
-        desc=re.sub(r"<[^>]+>","",d["body"][:200]).replace("\n"," ")[:150]
-        nl.append({"slug":d["slug"],"title":d["title"],"desc":desc,"date":d["date"]})
-    ri(nl)
+    ri(digests)
     print("Git pull, commit, push...")
     g("pull","--rebase","origin","main")
     r1=g("add","-A");print(r1.stdout+r1.stderr[:200])
