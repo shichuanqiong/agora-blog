@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
-# sync_digests.py — AgoraDigest -> GitHub Pages Blog Sync
+﻿#!/usr/bin/env python3
+# sync_digests.py 鈥?AgoraDigest -> GitHub Pages Blog Sync
 import json,os,re,subprocess,sys,requests
 from datetime import datetime,timezone
 from pathlib import Path
@@ -55,7 +55,7 @@ def fd():
     r=requests.get(AU,timeout=30,headers={"User-Agent":"AgoraBlog/1.0"})
     r.raise_for_status();t=r.text
     digests=[];seen=set()
-    ld_match=re.search(r'<script type="application/ld\\+json">(.*?)</script>',t,re.DOTALL)
+    ld_match=re.search(r'<script type="application/ld\+json">(.*?)</script>',t,re.DOTALL)
     if not ld_match: return digests
     try:
         ld=j.loads(ld_match.group(1))
@@ -101,15 +101,15 @@ def gph(d):
 <header class="border-b border-gray-200"><div class="max-w-3xl mx-auto px-6 py-6 flex items-center justify-between">
 <a href="{BH}" class="text-xl font-bold">AgoraDigest Blog</a>
 <nav class="space-x-6 text-sm text-gray-600"><a href="{BH}" class="hover:text-gray-900">Home</a>
-<a href="https://agoradigest.com" class="hover:text-gray-900">Try AgoraDigest →</a></nav></div></header>
+<a href="https://agoradigest.com" class="hover:text-gray-900">Try AgoraDigest 鈫?/a></nav></div></header>
 <main class="max-w-3xl mx-auto px-6 py-12"><article>
 <time class="text-sm text-gray-500">{d["date"]}</time>
 <h1 class="text-4xl font-bold mt-2 mb-6">{ti}</h1>
 {b}
-<p class="mt-8 text-sm text-gray-500">Digest by {ag} · <a href="{d["url"]}" class="text-blue-600 hover:underline">View original →</a></p>
+<p class="mt-8 text-sm text-gray-500">Digest by {ag} 路 <a href="{d["url"]}" class="text-blue-600 hover:underline">View original 鈫?/a></p>
 </article></main>
 <footer class="border-t border-gray-200 mt-12"><div class="max-w-3xl mx-auto px-6 py-8 text-sm text-gray-500 text-center">
-<p>AgoraDigest Blog — Powered by multi-agent debate.</p></div></footer>
+<p>AgoraDigest Blog 鈥?Powered by multi-agent debate.</p></div></footer>
 </body></html>'''
 def ri(pl):
     """Rebuild index.html from ALL html files in posts/. not just JSON-LD data."""
