@@ -1,0 +1,65 @@
+{
+  "posted_digests": {
+    "117cfb30-f6cb-4d66-a6bb-7fdfef8235c2_v1": {
+      "title": "Which uncontrolled variables in SWE-bench/GAIA runs explain rank reversals across papers?",
+      "slug": "which-uncontrolled-variables-in-swe-benchgaia-runs-explain-r",
+      "question_id": "ad877863-bb86-49e7-9659-eadb22fbb8b7",
+      "posted_at": "2026-05-25T17:01:05.399909+00:00"
+    },
+    "94fb4ad8-019c-4933-b636-e31cfb75fe07_v1": {
+      "title": "What does production observability for multi-agent systems actually look like in 2026?",
+      "slug": "what-does-production-observability-for-multi-agent-systems-a",
+      "question_id": "93620903-16ae-4003-a99a-cce7329b8d6c",
+      "posted_at": "2026-05-25T17:01:05.400051+00:00"
+    },
+    "b9c4a134-6f9c-4342-91b4-3a5459740ed6_v1": {
+      "title": "What confidence threshold should trigger human-in-the-loop approval for irreversible agent actions \u2014 and is a single threshold even the right approach?",
+      "slug": "what-confidence-threshold-should-trigger-human-in-the-loop-a",
+      "question_id": "012692e3-e357-4502-93b5-c762b4d4dd0b",
+      "posted_at": "2026-05-25T17:01:05.400152+00:00"
+    },
+    "8f142ea2-9f47-4e97-9bf0-66b75d1952d1_v1": {
+      "title": "Offline-capable MDM for 500 Macs: Jamf vs Intune vs Kandji with 48h sync tolerance",
+      "slug": "offline-capable-mdm-for-500-macs-jamf-vs-intune-vs-kandji-wi",
+      "question_id": "741e4581-652f-40f4-a522-22f255976110",
+      "posted_at": "2026-05-25T17:01:05.400235+00:00"
+    },
+    "f3d0d379-4476-4cd4-9c66-1fcc6b96216d_v1": {
+      "title": "OpenTelemetry gen_ai semantic conventions don't cover agentic workflows \u2014 how are teams tracing multi-agent decision loops in production?",
+      "slug": "opentelemetry-genai-semantic-conventions-dont-cover-agentic-",
+      "question_id": "256abd78-d105-4cb7-873c-45c03b6821c5",
+      "posted_at": "2026-05-25T17:01:05.400317+00:00"
+    },
+    "b5bdefc3-8061-469f-b17f-aae4a27ea5be_v1": {
+      "title": "Kafka+Flink vs dbt+Snowflake: migration breakeven at 2.5B events/day with 15-person team",
+      "slug": "kafkaflink-vs-dbtsnowflake-migration-breakeven-at-25b-events",
+      "question_id": "5cfdbba5-983f-433e-bf9a-f17f4dd7a14a",
+      "posted_at": "2026-05-25T17:01:05.400395+00:00"
+    },
+    "e6c9430f-d6f1-43c6-a56c-6e332e035da2_v1": {
+      "title": "How Are Teams Debugging Non-Deterministic Agent Failures in Production Without Traditional Stack Traces?",
+      "slug": "how-are-teams-debugging-non-deterministic-agent-failures-in-",
+      "question_id": "2d0b3d53-0c7f-4c12-b0f5-450b7173a3d2",
+      "posted_at": "2026-05-25T17:01:05.400469+00:00"
+    },
+    "25031136-14c1-4099-b0f4-1e4652b4762f_v1": {
+      "title": "Minimizing monthly burn for solo-founder LLM SaaS: Vercel + OpenAI vs self-hosted inference?",
+      "slug": "minimizing-monthly-burn-for-solo-founder-llm-saas-vercel-ope",
+      "question_id": "b6605dfc-1e26-41d2-a871-8a993cbce14f",
+      "posted_at": "2026-05-25T17:01:05.400542+00:00"
+    },
+    "52c22552-3f48-44e6-8f82-25b03e04d43a_v4": {
+      "title": "What's the most capital-efficient tech stack for a solo dev building an AI SaaS in 2026?",
+      "slug": "whats-the-most-capital-efficient-tech-stack-for-a-solo-dev-b",
+      "question_id": "0d08bc16-df3a-43f1-8d42-9d2c4004d75a",
+      "posted_at": "2026-05-25T17:01:05.400611+00:00"
+    },
+    "738b2bce-20b3-44e2-b352-5ce37c4a2c3b_v3": {
+      "title": "When does building an internal feature flag system beat LaunchDarkly cost-wise?",
+      "slug": "when-does-building-an-internal-feature-flag-system-beat-laun",
+      "question_id": "e4fdfa99-8a9a-433f-b6f1-9ce8caadddc4",
+      "posted_at": "2026-05-25T17:01:05.400688+00:00"
+    }
+  },
+  "last_updated": "2026-05-25T17:01:05.401578+00:00"
+}
