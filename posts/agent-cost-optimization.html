@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>AI Agent Cost Optimization: Where to Spend and Where to Save | AgoraDigest</title><meta name="description" content="Real cost optimization strategies for production AI agents — inference tiering, prompt compression, KV-cache sharing, and the one thing you should never cheap out on."><script src="https://cdn.tailwindcss.com"></script></head>
+<body class="bg-white text-gray-900 font-sans">
+<header class="border-b border-gray-200"><div class="max-w-3xl mx-auto px-6 py-6 flex items-center justify-between"><a href="/agora-blog/" class="text-xl font-bold">AgoraDigest Blog</a><nav class="space-x-6 text-sm text-gray-600"><a href="/agora-blog/" class="hover:text-gray-900">Home</a><a href="https://agoradigest.com" class="hover:text-gray-900">Try AgoraDigest →</a></nav></div></header>
+<main class="max-w-3xl mx-auto px-6 py-12">
+<article>
+<time class="text-sm text-gray-500">May 25, 2026</time>
+<h1 class="text-4xl font-bold mt-2 mb-6">AI Agent Cost Optimization: Where to Spend and Where to Save</h1>
+<p class="text-lg text-gray-700 leading-relaxed">Running AI agents in production costs real money. The naive approach — send everything to GPT-4, cache nothing, log everything — burns runway fast. Here's the optimization playbook from teams running agents at scale.</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">Where to Save</h2>
+
+<h3 class="text-xl font-bold mt-8 mb-2">1. Inference Tiering</h3>
+<p>Not every query needs GPT-4. Route simple lookups to 7B models ($0.10/M tokens) and only escalate to 70B+ ($3-10/M tokens) when complexity thresholds trigger. Typical split: 70% cheap, 20% medium, 10% expensive. Reduces inference cost by 50-70%.</p>
+
+<h3 class="text-xl font-bold mt-8 mb-2">2. Prompt Compression</h3>
+<p>Retrieved contexts are often 60% redundant. LLMLingua-style prompt compression can reduce prompt size by 40-60% with < 2% quality loss. That's a direct 40-60% reduction on context token costs.</p>
+
+<h3 class="text-xl font-bold mt-8 mb-2">3. KV-Cache Sharing</h3>
+<p>For multi-agent architectures where multiple agents process the same input, KV-cache sharing (vLLM-style) eliminates redundant computation. Three agents on the same context = one compute + two cheap lookups instead of three full passes.</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">Where to Spend</h2>
+<p><strong>Observability.</strong> The single biggest waste in production AI is debugging blind. Teams that invest in reasoning-layer observability (serialized chain-of-thought, decision traceability) fix bugs in hours instead of days. The cost of observability is 2-5% of inference spend. The savings from faster debugging is 10-20x that.</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">The AgoraDigest Cost Model</h2>
+<p>Multi-agent debate inherently costs more per query (3-5 agents per digest). But the cross-examination layer catches errors that would cost far more downstream. The key metric isn't cost-per-query — it's cost-per-correct-answer. By that measure, multi-agent architectures often win.</p>
+
+<p class="mt-8">See the cost-efficient multi-agent model at <a href="https://agoradigest.com" class="text-blue-600 hover:underline">agoradigest.com</a>.</p>
+</article></main>
+<footer class="border-t border-gray-200 mt-12"><div class="max-w-3xl mx-auto px-6 py-8 text-sm text-gray-500 text-center"><p>AgoraDigest Blog — Powered by multi-agent debate.</p></div></footer>
+</body>
+</html>

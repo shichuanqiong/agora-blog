@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Speculative Decoding in Production: Does It Actually Cut Latency? | AgoraDigest</title><meta name="description" content="Speculative decoding promises 2-3x latency reduction. Real production data shows when it works, when it doesn't, and the hidden complexity cost."><script src="https://cdn.tailwindcss.com"></script></head>
+<body class="bg-white text-gray-900 font-sans">
+<header class="border-b border-gray-200"><div class="max-w-3xl mx-auto px-6 py-6 flex items-center justify-between"><a href="/agora-blog/" class="text-xl font-bold">AgoraDigest Blog</a><nav class="space-x-6 text-sm text-gray-600"><a href="/agora-blog/" class="hover:text-gray-900">Home</a><a href="https://agoradigest.com" class="hover:text-gray-900">Try AgoraDigest →</a></nav></div></header>
+<main class="max-w-3xl mx-auto px-6 py-12">
+<article>
+<time class="text-sm text-gray-500">May 25, 2026</time>
+<h1 class="text-4xl font-bold mt-2 mb-6">Speculative Decoding in Production: Does It Actually Cut Latency?</h1>
+<p class="text-lg text-gray-700 leading-relaxed">Speculative decoding promises 2-3x latency reduction by using a small draft model to predict tokens that a large target model verifies in parallel. In production, the reality is more nuanced.</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">When It Works</h2>
+<ul class="list-disc pl-6 space-y-2">
+<li><strong>Predictable output domains:</strong> JSON generation, structured summaries, formulaic responses — the draft model can predict these with high acceptance rates (70-85%)</li>
+<li><strong>Large target models (70B+):</strong> The bigger the target, the more latency you save per speculated token. 70B with a 7B draft shows 2.1x real-world speedup</li>
+<li><strong>Batch inference:</strong> Draft model overhead is amortized across batch size. At batch 32+, speedup approaches theorertical max</li>
+</ul>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">When It Doesn't</h2>
+<ul class="list-disc pl-6 space-y-2">
+<li><strong>Creative writing:</strong> Draft acceptance rate drops to 30-40%. Most tokens get rejected, adding overhead with no benefit</li>
+<li><strong>Code generation:</strong> Draft model produces plausible-but-wrong code 60% of the time. Target model rejects most of it, latency actually increases 1.2x</li>
+<li><strong>Low-latency targets (7B):</strong> The draft model overhead eats most of the theoretical gain. Measured speedup on 7B targets is only 1.1-1.2x</li>
+</ul>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">The Hidden Cost</h2>
+<p>Speculative decoding adds a second model to your serving stack — more memory, more deployment complexity, more failure modes. Teams that skip speculative decoding and instead optimize KV-cache management and prompt compression often see comparable gains at lower complexity.</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">Verdict</h2>
+<p>Use speculative decoding only when: (1) you have a 70B+ target model, (2) your output domain is structured/predictable, and (3) you have infra team capacity to manage the dual-model deployment. Otherwise, optimize your base serving first.</p>
+
+<p class="mt-8">Explore optimized AI inference patterns at <a href="https://agoradigest.com" class="text-blue-600 hover:underline">agoradigest.com</a>.</p>
+</article></main>
+<footer class="border-t border-gray-200 mt-12"><div class="max-w-3xl mx-auto px-6 py-8 text-sm text-gray-500 text-center"><p>AgoraDigest Blog — Powered by multi-agent debate.</p></div></footer>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>LLM Evaluation in Production: Beyond Benchmark Scores | AgoraDigest</title><meta name="description" content="How to evaluate LLM outputs in production — structural checks, LLM-as-judge calibration, and sampling strategies that actually catch failures."><script src="https://cdn.tailwindcss.com"></script></head>
+<body class="bg-white text-gray-900 font-sans">
+<header class="border-b border-gray-200"><div class="max-w-3xl mx-auto px-6 py-6 flex items-center justify-between"><a href="/agora-blog/" class="text-xl font-bold">AgoraDigest Blog</a><nav class="space-x-6 text-sm text-gray-600"><a href="/agora-blog/" class="hover:text-gray-900">Home</a><a href="https://agoradigest.com" class="hover:text-gray-900">Try AgoraDigest →</a></nav></div></header>
+<main class="max-w-3xl mx-auto px-6 py-12">
+<article>
+<time class="text-sm text-gray-500">May 25, 2026</time>
+<h1 class="text-4xl font-bold mt-2 mb-6">LLM Evaluation in Production: Beyond Benchmark Scores</h1>
+<p class="text-lg text-gray-700 leading-relaxed">Benchmark scores tell you how a model performs on a static test set. They don't tell you how it behaves at 2 AM with a user prompt it's never seen before, running on quantized weights with a context window half-full of retrieved chunks.</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">The Three-Layer Evaluation Stack</h2>
+
+<h3 class="text-xl font-bold mt-8 mb-2">Layer 1: Structural Invariants (100% Coverage)</h3>
+<p>Every output is checked for: PII leakage, required schema fields, minimum confidence threshold, circular reasoning patterns, and orphan write operations. These are deterministic checks — zero cost, zero latency impact, catch the catastrophic failures.</p>
+
+<h3 class="text-xl font-bold mt-8 mb-2">Layer 2: LLM-as-Judge (100% Coverage)</h3>
+<p>A lightweight judge model (~1.3B params, ~$0.002/eval) scores every output on factual accuracy, completeness, and instruction following. Critical calibration step: judges have systematic biases (verbosity preference, style mirroring) that must be measured and normalized.</p>
+
+<h3 class="text-xl font-bold mt-8 mb-2">Layer 3: Human Audit (1-5% Sampling)</h3>
+<p>Sampled from the judge's uncertainty band (scores 0.4-0.7 out of 1.0) plus random subset. This provides the ground truth for judge calibration. Without this layer, you're flying blind on systematic judge drift.</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">What Production Teams Actually Find</h2>
+<p>Most failures come from the middle band — outputs that pass structural checks (no PII, correct schema) and score mid-range on the judge (0.5-0.7). These look correct but contain subtle reasoning errors. The 5% human audit catches these before they compound.</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">How Multi-Agent Debate Changes Evaluation</h2>
+<p>In AgoraDigest, cross-examination serves as a built-in evaluation layer — agents that produce low-confidence claims are challenged by peers, creating an organic quality gate without dedicated eval infrastructure.</p>
+
+<p class="mt-8">Experience built-in cross-examination at <a href="https://agoradigest.com" class="text-blue-600 hover:underline">agoradigest.com</a>.</p>
+</article></main>
+<footer class="border-t border-gray-200 mt-12"><div class="max-w-3xl mx-auto px-6 py-8 text-sm text-gray-500 text-center"><p>AgoraDigest Blog — Powered by multi-agent debate.</p></div></footer>
+</body>
+</html>

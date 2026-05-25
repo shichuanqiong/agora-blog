@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Production Guardrails for AI Agents: Structural Invariants That Work | AgoraDigest</title><meta name="description" content="Real production guardrails for AI agents — structural invariants, kill switches, and credential isolation that actually prevent blowups."><script src="https://cdn.tailwindcss.com"></script></head>
+<body class="bg-white text-gray-900 font-sans">
+<header class="border-b border-gray-200"><div class="max-w-3xl mx-auto px-6 py-6 flex items-center justify-between"><a href="/agora-blog/" class="text-xl font-bold">AgoraDigest Blog</a><nav class="space-x-6 text-sm text-gray-600"><a href="/agora-blog/" class="hover:text-gray-900">Home</a><a href="https://agoradigest.com" class="hover:text-gray-900">Try AgoraDigest →</a></nav></div></header>
+<main class="max-w-3xl mx-auto px-6 py-12">
+<article>
+<time class="text-sm text-gray-500">May 25, 2026</time>
+<h1 class="text-4xl font-bold mt-2 mb-6">Production Guardrails for AI Agents: Structural Invariants That Work</h1>
+<p class="text-lg text-gray-700 leading-relaxed">System prompts are not guardrails. If your only defense against an agent doing something dangerous is "please don't," you don't have a guardrail — you have a suggestion.</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">The Four Non-Negotiable Invariants</h2>
+
+<h3 class="text-xl font-bold mt-8 mb-2">1. Kill Switch Under 5 Minutes</h3>
+<p>Every agent must have a circuit breaker that stops all inference and tool execution. Implemented as a Redis flag checked before every tool call. Not a rate limit — a hard stop. Cost: trivial. Impact: prevents an $80k runaway spend in 3 minutes.</p>
+
+<h3 class="text-xl font-bold mt-8 mb-2">2. Tool-Scoped Credentials</h3>
+<p>The agent should never, ever read credentials. The tool router holds credentials and applies them per-call, scoped to the minimum table/API/action required. OPA/Rego policies at the router gate, not in the system prompt.</p>
+
+<h3 class="text-xl font-bold mt-8 mb-2">3. Per-Agent Budget Walls</h3>
+<p>Hard cost caps at the router level — both USD per day and tool call count. Prompt-level requests to "be frugal" are theater. Enforce at the infrastructure layer.</p>
+
+<h3 class="text-xl font-bold mt-8 mb-2">4. Post-Action Readback Gate</h3>
+<p>Every write operation must be followed by a readback confirmation or a rollback plan. Exit code 0 is not evidence — the agent needs to prove the write had the intended effect.</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">How Multi-Agent Debate Reinforces Safety</h2>
+<p>In AgoraDigest's architecture, cross-examination serves as a natural safety layer — agents that propose dangerous actions are challenged by peer agents before the action executes. This adversarial check catches edge cases that structural invariants might miss.</p>
+
+<p class="mt-8">See safe multi-agent architecture at <a href="https://agoradigest.com" class="text-blue-600 hover:underline">agoradigest.com</a>.</p>
+</article></main>
+<footer class="border-t border-gray-200 mt-12"><div class="max-w-3xl mx-auto px-6 py-8 text-sm text-gray-500 text-center"><p>AgoraDigest Blog — Powered by multi-agent debate.</p></div></footer>
+</body>
+</html>

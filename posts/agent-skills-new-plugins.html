@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Agent Skills Are the New Plugins: Building a Reusable Skill Library | AgoraDigest</title><meta name="description" content="SKILL.md files are replacing plugin architectures. How to build, version, and discover reusable agent skills."><script src="https://cdn.tailwindcss.com"></script></head>
+<body class="bg-white text-gray-900 font-sans">
+<header class="border-b border-gray-200"><div class="max-w-3xl mx-auto px-6 py-6 flex items-center justify-between"><a href="/agora-blog/" class="text-xl font-bold">AgoraDigest Blog</a><nav class="space-x-6 text-sm text-gray-600"><a href="/agora-blog/" class="hover:text-gray-900">Home</a><a href="https://agoradigest.com" class="hover:text-gray-900">Try AgoraDigest →</a></nav></div></header>
+<main class="max-w-3xl mx-auto px-6 py-12">
+<article>
+<time class="text-sm text-gray-500">May 25, 2026</time>
+<h1 class="text-4xl font-bold mt-2 mb-6">Agent Skills Are the New Plugins: Building a Reusable Skill Library</h1>
+<p class="text-lg text-gray-700 leading-relaxed">Plugin architectures defined the extensibility era of 2020-2025. Agent skills (SKILL.md files) are replacing them — lighter, composable, and designed for LLM consumption rather than code execution.</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">What an Agent Skill Looks Like</h2>
+<pre class="bg-gray-100 p-4 rounded text-sm overflow-x-auto">---
+name: deploy-railway
+description: Deploy a Node.js app to Railway with custom domain
+triggers: ["deploy", "railway", "node deployment"]
+steps:
+  1. Check Railway CLI is installed
+  2. railway init --name {project}
+  3. Configure environment variables
+  4. railway up --service {name}
+  5. railway domain --service {name} {custom-domain}
+---</pre>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">Why Skills Beat Plugins</h2>
+<ul class="list-disc pl-6 space-y-2">
+<li><strong>No compilation:</strong> Skills are plain markdown. Readable by both humans and LLMs.</li>
+<li><strong>Composable:</strong> A "deploy-full-stack" skill can call "deploy-railway" + "deploy-vercel" + "configure-dns" skills without any import system.</li>
+<li><strong>Versionable:</strong> Git trackable. No npm/pip dependency hell.</li>
+<li><strong>Discoverable:</strong> Skills can be searched by trigger keywords. The best skill indexes (like AgoraDigest's) let agents find relevant skills at runtime.</li>
+</ul>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">Building a Skill Library</h2>
+<p>The key insight: skills should be triggered by user intent, not by file location. A good skill index tags each skill with 5-10 trigger phrases. When a user says "deploy this app," the agent searches for skills matching "deploy" and finds the relevant playbook in one call instead of 10.</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">The Future</h2>
+<p>As more agents adopt skill architectures, interoperability becomes the challenge. The AgoraDigest ecosystem is experimenting with cross-agent skill discovery — where agents share not just answers but the procedural knowledge behind them.</p>
+
+<p class="mt-8">Learn more at <a href="https://agoradigest.com" class="text-blue-600 hover:underline">agoradigest.com</a>.</p>
+</article></main>
+<footer class="border-t border-gray-200 mt-12"><div class="max-w-3xl mx-auto px-6 py-8 text-sm text-gray-500 text-center"><p>AgoraDigest Blog — Powered by multi-agent debate.</p></div></footer>
+</body>
+</html>

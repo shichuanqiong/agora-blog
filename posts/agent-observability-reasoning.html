@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Agent Observability: Beyond Logging to Reasoning Visibility | AgoraDigest</title><meta name="description" content="Production agent debugging requires visibility into reasoning, not just tool calls. Why logs lie and what to monitor instead."><script src="https://cdn.tailwindcss.com"></script></head>
+<body class="bg-white text-gray-900 font-sans">
+<header class="border-b border-gray-200"><div class="max-w-3xl mx-auto px-6 py-6 flex items-center justify-between"><a href="/agora-blog/" class="text-xl font-bold">AgoraDigest Blog</a><nav class="space-x-6 text-sm text-gray-600"><a href="/agora-blog/" class="hover:text-gray-900">Home</a><a href="https://agoradigest.com" class="hover:text-gray-900">Try AgoraDigest →</a></nav></div></header>
+<main class="max-w-3xl mx-auto px-6 py-12">
+<article>
+<time class="text-sm text-gray-500">May 25, 2026</time>
+<h1 class="text-4xl font-bold mt-2 mb-6">Agent Observability: Beyond Logging to Reasoning Visibility</h1>
+<p class="text-lg text-gray-700 leading-relaxed">The hardest production bugs aren't crashes — they're agents that return clean 200s with wrong content. Traditional observability (logs, traces, metrics) captures what the agent did, not why it decided to do it.</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">What Logs Miss</h2>
+<p>A log shows: <code>tool_call: search_web("Python async best practices")</code>. It doesn't show: <em>"I couldn't find the answer in my context window — I guessed it was Python's asyncio library — I'm 72% confident"</em>. That reasoning trace is where real debugging happens.</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">The Three-Layer Observability Model</h2>
+<ol class="list-decimal pl-6 space-y-2">
+<li><strong>Structural Layer:</strong> Tool calls, latency, token usage, error codes. Cheap, automatable, catches infrastructure failures.</li>
+<li><strong>Reasoning Layer:</strong> Serialized chain-of-thought before each decision. Captures what the agent believed when it chose an action. This is the layer most teams skip.</li>
+<li><strong>Outcome Layer:</strong> Post-hoc evaluation — did the user accept the output? Did it lead to a correction? Did the agent self-report uncertainty?</li>
+</ol>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">Production Reality</h2>
+<p>Most teams use structural logging (100% coverage) + outcome evaluation (5-10% sampling). The reasoning layer remains experimental because it doubles token costs. But teams that implement it report 60% faster debugging cycles on reasoning failures.</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">The AgoraDigest Approach</h2>
+<p>In multi-agent debate, reasoning visibility is built into the protocol — each agent's argument chain is visible to other agents and to the final digest reader. Cross-examination forces agents to expose their reasoning, making the process transparent by design rather than by instrumentation.</p>
+
+<p class="mt-8">Explore transparent agent reasoning at <a href="https://agoradigest.com" class="text-blue-600 hover:underline">agoradigest.com</a>.</p>
+</article></main>
+<footer class="border-t border-gray-200 mt-12"><div class="max-w-3xl mx-auto px-6 py-8 text-sm text-gray-500 text-center"><p>AgoraDigest Blog — Powered by multi-agent debate.</p></div></footer>
+</body>
+</html>

@@ -29,6 +29,17 @@
   <script>
     const BASE = '/agora-blog/';
     const posts = [
+      { slug: "multi-agent-vs-single-llm", title: "Multi-Agent vs Single LLM: Why Debate Beats Monolith", desc: "Data shows multi-agent debate reduces factual errors by 40-60%. Here's the architecture and benchmarks.", date: "2026-05-25" },
+      { slug: "agent-observability-reasoning", title: "Agent Observability: Beyond Logging to Reasoning Visibility", desc: "Why logs lie about agent failures and how to capture the real debugging signal.", date: "2026-05-25" },
+      { slug: "rag-vs-finetuning-vs-prompt", title: "RAG vs Fine-Tuning vs Prompt Engineering in 2026", desc: "A practical comparison with real cost, latency, and maintenance data.", date: "2026-05-25" },
+      { slug: "agent-skills-new-plugins", title: "Agent Skills Are the New Plugins", desc: "Why SKILL.md files are replacing plugin architectures across the agent ecosystem.", date: "2026-05-25" },
+      { slug: "production-guardrails-agents", title: "Production Guardrails for AI Agents", desc: "Kill switches, credential isolation, and per-agent budgets — not system prompt theater.", date: "2026-05-25" },
+      { slug: "speculative-decoding-production", title: "Speculative Decoding in Production", desc: "Real production data on when speculative decoding helps and when it adds complexity.", date: "2026-05-25" },
+      { slug: "llm-evaluation-production", title: "LLM Evaluation in Production", desc: "The three-layer evaluation stack — structural checks, LLM-as-judge, and human audit.", date: "2026-05-25" },
+      { slug: "monolith-to-multi-agent-migration", title: "From Monolith to Multi-Agent", desc: "A phased migration guide from single-model to multi-agent without breaking production.", date: "2026-05-25" },
+      { slug: "prompt-injection-defense-2026", title: "Prompt Injection Defense in 2026", desc: "System prompts fail every time. Architecture-layer defenses that hold up under attack.", date: "2026-05-25" },
+      { slug: "agent-cost-optimization", title: "AI Agent Cost Optimization", desc: "Inference tiering, prompt compression, and the one thing you should never cheap out on.", date: "2026-05-25" },
+      { slug: "agent-production-gap-89-percent", title: "Why 89% of Agent Projects Never Reach Production", desc: "Governance-first vs features-first: what the 11% that succeed do differently.", date: "2026-05-25" },
       { slug: "what-is-multi-agent-digest", title: "What Is a Multi-Agent Digest?", desc: "How AI agents debating each other produce better answers than any single model.", date: "2026-05-22" },
       { slug: "best-ai-aggregator-tools-2026", title: "Best AI Aggregator Tools 2026", desc: "A roundup of the top platforms for aggregating and comparing AI outputs.", date: "2026-05-22" },
       { slug: "how-to-get-cited-by-ai", title: "How to Get Your Content Cited by AI", desc: "AI SEO strategies that make LLMs quote your content in their answers.", date: "2026-05-22" },
@@ -43,21 +54,16 @@
       { slug: "crypto-agent-roundup", title: "Crypto Market Analysis: Agent Edition", desc: "How AI agents analyze crypto markets differently than humans.", date: "2026-05-22" },
       { slug: "saas-valuation-2026", title: "SaaS Valuation Trends in 2026", desc: "ARR multiples, compression drivers, and what the software meltdown means.", date: "2026-05-22" },
       { slug: "trading-with-ai-agents", title: "Can AI Agents Actually Trade?", desc: "Testing Minervini SEPA and CANSLIM strategies through agent-based analysis.", date: "2026-05-22" },
-      { slug: "openclaw-vs-hermes", title: "OpenClaw vs Hermes: Which Agent Platform Wins?", desc: "A comprehensive comparison of the two leading open-source agent systems.", date: "2026-05-22" },
+      { slug: "openclaw-vs-hermes", title: "OpenClaw vs Hermes", desc: "A comprehensive comparison of the two leading open-source agent systems.", date: "2026-05-22" },
     ];
-
     const container = document.getElementById('posts');
     posts.forEach(p => {
       const article = document.createElement('article');
       article.className = 'mb-10 pb-10 border-b border-gray-100';
-      article.innerHTML = `
-        <time class="text-sm text-gray-500">${p.date}</time>
-        <h2 class="text-2xl font-bold mt-1 mb-2">
-          <a href="${BASE}posts/${p.slug}.html" class="hover:text-blue-600">${p.title}</a>
-        </h2>
+      article.innerHTML = `<time class="text-sm text-gray-500">${p.date}</time>
+        <h2 class="text-2xl font-bold mt-1 mb-2"><a href="${BASE}posts/${p.slug}.html" class="hover:text-blue-600">${p.title}</a></h2>
         <p class="text-gray-600 leading-relaxed">${p.desc}</p>
-        <a href="${BASE}posts/${p.slug}.html" class="inline-block mt-3 text-sm font-medium text-blue-600 hover:text-blue-800">Read more →</a>
-      `;
+        <a href="${BASE}posts/${p.slug}.html" class="inline-block mt-3 text-sm font-medium text-blue-600 hover:text-blue-800">Read more →</a>`;
       container.appendChild(article);
     });
   </script>

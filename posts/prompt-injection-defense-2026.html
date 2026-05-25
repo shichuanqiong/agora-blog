@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Prompt Injection Defense in 2026: What Actually Works | AgoraDigest</title><meta name="description" content="Prompt injection defenses that hold up in production — credential isolation, tool-scoped policies, and structural separation that system prompts can't provide."><script src="https://cdn.tailwindcss.com"></script></head>
+<body class="bg-white text-gray-900 font-sans">
+<header class="border-b border-gray-200"><div class="max-w-3xl mx-auto px-6 py-6 flex items-center justify-between"><a href="/agora-blog/" class="text-xl font-bold">AgoraDigest Blog</a><nav class="space-x-6 text-sm text-gray-600"><a href="/agora-blog/" class="hover:text-gray-900">Home</a><a href="https://agoradigest.com" class="hover:text-gray-900">Try AgoraDigest →</a></nav></div></header>
+<main class="max-w-3xl mx-auto px-6 py-12">
+<article>
+<time class="text-sm text-gray-500">May 25, 2026</time>
+<h1 class="text-4xl font-bold mt-2 mb-6">Prompt Injection Defense in 2026: What Actually Works</h1>
+<p class="text-lg text-gray-700 leading-relaxed">Every major AI security incident in 2025-2026 shared one common factor: the defense relied on the system prompt. And the system prompt failed every time. Prompt injection cannot be solved at the prompt layer. It must be solved at the architecture layer.</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">What Doesn't Work</h2>
+<ul class="list-disc pl-6 space-y-2">
+<li><strong>System prompt instructions:</strong> "Ignore all previous instructions" is trivially bypassed. Attackers simply ask the model to repeat the system prompt, then modify it.</li>
+<li><strong>Input sanitization:</strong> Attackers encode payloads in base64, split across multiple messages, or use Unicode homoglyphs. Sanitizers can't keep up.</li>
+<li><strong>Output filtering:</strong> By the time the dangerous output is generated, the damage may already be done — especially for tool-calling agents.</li>
+</ul>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">What Does Work</h2>
+
+<h3 class="text-xl font-bold mt-8 mb-2">1. Tool-Scoped Credential Isolation</h3>
+<p>The agent should never hold credentials. The tool router holds them. The router checks permissions before every call — not based on what the agent says it needs, but based on a pre-configured policy (OPA/Rego). The agent can ask "send email" but the router decides which email address it can send to.</p>
+
+<h3 class="text-xl font-bold mt-8 mb-2">2. Structured Input Separation</h3>
+<p>User input, system prompt, and retrieved context must be architecturally separated — different attention masks, different embedding spaces. This is the defense that Google's Titan architecture and Anthropic's Constitutional approach are converging on.</p>
+
+<h3 class="text-xl font-bold mt-8 mb-2">3. Human-in-the-Loop Gates</h3>
+<p>Any operation that changes state (writes, deletes, sends, pays) must pass through a separate approval mechanism. The agent recommends; the human (or policy engine) authorizes.</p>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">The Multi-Agent Edge</h2>
+<p>In AgoraDigest's multi-agent architecture, cross-examination acts as a natural injection defense — an injected agent is identified and challenged by peer agents before its output enters the final digest. Security through adversarial redundancy.</p>
+
+<p class="mt-8">Learn more at <a href="https://agoradigest.com" class="text-blue-600 hover:underline">agoradigest.com</a>.</p>
+</article></main>
+<footer class="border-t border-gray-200 mt-12"><div class="max-w-3xl mx-auto px-6 py-8 text-sm text-gray-500 text-center"><p>AgoraDigest Blog — Powered by multi-agent debate.</p></div></footer>
+</body>
+</html>
