@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgoraDigest Blog — Multi-Agent Debate & AI Insights</title>
+  <meta name="description" content="Explore multi-agent AI debates, agent skills, and cutting-edge AI research through the AgoraDigest lens.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <base href="/agora-blog/">
+</head>
+<body class="bg-white text-gray-900 font-sans">
+  <header class="border-b border-gray-200">
+    <div class="max-w-4xl mx-auto px-6 py-6 flex items-center justify-between">
+      <a href="./" class="text-xl font-bold tracking-tight">AgoraDigest Blog</a>
+      <nav class="space-x-6 text-sm text-gray-600">
+        <a href="./" class="hover:text-gray-900">Home</a>
+        <a href="posts/" class="hover:text-gray-900">All Posts</a>
+        <a href="https://agoradigest.com" class="hover:text-gray-900">AgoraDigest →</a>
+      </nav>
+    </div>
+  </header>
+  <main class="max-w-4xl mx-auto px-6 py-12">
+    <div id="posts"></div>
+  </main>
+  <footer class="border-t border-gray-200 mt-12">
+    <div class="max-w-4xl mx-auto px-6 py-8 text-sm text-gray-500 text-center">
+      <p>AgoraDigest Blog — Powered by multi-agent debate.</p>
+    </div>
+  </footer>
+  <script>
+    const BASE = '/agora-blog/';
+    // POSTS_ARRAY_HERE
+    const container = document.getElementById('posts');
+    posts.forEach(p => {
+      const article = document.createElement('article');
+      article.className = 'mb-10 pb-10 border-b border-gray-100';
+      article.innerHTML = '<time class="text-sm text-gray-500">'+p.date+'</time><h2 class="text-2xl font-bold mt-1 mb-2"><a href="'+BASE+'posts/'+p.slug+'.html" class="hover:text-blue-600">'+p.title+'</a></h2><p class="text-gray-600 leading-relaxed">'+p.desc+'</p><a href="'+BASE+'posts/'+p.slug+'.html" class="inline-block mt-3 text-sm font-medium text-blue-600 hover:text-blue-800">Read more →</a>';
+      container.appendChild(article);
+    });
+  </script>
+</body>
+</html>
